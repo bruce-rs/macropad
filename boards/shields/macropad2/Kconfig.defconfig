@@ -14,6 +14,28 @@ config I2C
 config SSD1306
     default y
 
+# Replace ZMK's status screen with the rainy city animation (rain_screen.c).
+choice ZMK_DISPLAY_STATUS_SCREEN
+    default ZMK_DISPLAY_STATUS_SCREEN_CUSTOM
+endchoice
+
+# Keep the animation running instead of blanking the screen when idle.
+config ZMK_DISPLAY_BLANK_ON_IDLE
+    default n
+
+config LV_Z_MEM_POOL_SIZE
+    default 4096 if ZMK_DISPLAY_STATUS_SCREEN_CUSTOM
+
+config MACROPAD2_RAIN_SCREEN
+    bool "Rainy city animation on the OLED"
+    default y
+    depends on ZMK_DISPLAY_STATUS_SCREEN_CUSTOM
+    select LV_USE_IMG
+    select LV_USE_CANVAS
+
+config MACROPAD2_SCREEN_INVERT
+    bool "Swap lit and unlit pixels in the rainy city animation"
+
 endif # ZMK_DISPLAY
 
 if LVGL

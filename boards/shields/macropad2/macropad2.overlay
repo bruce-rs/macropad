@@ -33,6 +33,7 @@
 // 0.91" 128x32 SSD1306 OLED. SDA -> pin 017, SCK -> pin 020.
 &pro_micro_i2c {
     status = "okay";
+    clock-frequency = <400000>; // 400 kHz fast mode, so full-screen animation frames send quickly
 
     oled: ssd1306@3c {
         compatible = "solomon,ssd1306fb";
