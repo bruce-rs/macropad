@@ -19,10 +19,6 @@ choice ZMK_DISPLAY_STATUS_SCREEN
     default ZMK_DISPLAY_STATUS_SCREEN_CUSTOM
 endchoice
 
-# Keep the animation running instead of blanking the screen when idle.
-config ZMK_DISPLAY_BLANK_ON_IDLE
-    default n
-
 config LV_Z_MEM_POOL_SIZE
     default 4096 if ZMK_DISPLAY_STATUS_SCREEN_CUSTOM
 
