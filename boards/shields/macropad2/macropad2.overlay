@@ -1,9 +1,3 @@
-// This file was generated from a template. Edit it to match your keyboard.
-// See https://zmk.dev/docs/development/hardware-integration/new-shield for more
-// instructions.
-
-#include <dt-bindings/zmk/matrix_transform.h>
-
 #include "macropad2-layouts.dtsi"
 
 / {
@@ -11,40 +5,14 @@
         zmk,physical-layout = &default_layout;
     };
 
+    // Direct wiring: each key goes from its own pin to GND, no diodes needed.
     kscan: kscan {
-        // If the hardware does not use a switch matrix, change this to the
-        // appropriate driver and update the properties below to match.
-        // See https://zmk.dev/docs/config/kscan for supported key scan drivers.
-        compatible = "zmk,kscan-gpio-matrix";
-        // Set this to "col2row" or "row2col" to match the hardware. If using
-        // "row2col", change the col-gpios to (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)
-        // and the row-gpios to GPIO_ACTIVE_HIGH.
-        diode-direction = "col2row";
+        compatible = "zmk,kscan-gpio-direct";
         wakeup-source;
 
-        // Replace these comments with the GPIO pins in the matrix.
-        // See https://zmk.dev/docs/development/hardware-integration/new-shield#shield-overlays
-        col-gpios
-            = <&pro_micro 0 GPIO_ACTIVE_HIGH>
-            , <&pro_micro 0 GPIO_ACTIVE_HIGH>
+        input-gpios
+            = <&pro_micro 2 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   // key 1: pin labeled 017 (P0.17)
+            , <&pro_micro 3 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   // key 2: pin labeled 020 (P0.20)
             ;
-
-        row-gpios
-            = <&pro_micro 0 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
-            , <&pro_micro 0 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
-            ;
-    };
-
-    default_transform: default_transform {
-        // See https://zmk.dev/docs/development/hardware-integration/new-shield#matrix-transform
-        // for how to configure this
-        compatible = "zmk,matrix-transform";
-        columns = <2>;
-        rows = <2>;
-
-        map = <
-            RC(0, 0) RC(0, 1)
-            RC(1, 0) RC(1, 1)
-        >;
     };
 };
